@@ -1,0 +1,16 @@
+<policies>
+    <inbound>
+        <base />
+        <log-to-eventhub logger-id="loggertest002">@(string.Join("", DateTime.UtcNow, ", ","serviceName=",context.Deployment.ServiceName,", ","requestID=",context.RequestId,", ","src=",context.Request.IpAddress,", ","message=",context.Request.Body.As<string>(preserveContent: true)))</log-to-eventhub>
+        <set-backend-service base-url="http://echoapi.cloudapp.net/api" />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
